@@ -13,4 +13,7 @@
     <logger name="org.jetbrains.exposed" level="WARN"/>
     <logger name="com.zaxxer.hikari.pool" level="WARN"/>
     <logger name="com.zaxxer.hikari.HikariConfig" level="WARN"/>
+    <logger name="world.gregs.voidps.engine.GameLoop" level="INFO"/>
+    <logger name="world.gregs.voidps.engine.task.NPCTask" level="INFO"/>
+    <logger name="world.gregs.voidps.engine.task.Hunting" level="INFO"/>
 </configuration>

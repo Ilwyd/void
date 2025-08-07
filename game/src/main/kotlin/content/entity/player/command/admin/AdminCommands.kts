@@ -554,6 +554,18 @@ modCommand("chance (drop-table-id)", "get the chances for all items of a drop ta
     }
 }
 
+adminCommand("printenum") {
+    println(enums.get(content.toInt()))
+}
+
+adminCommand("findenum") {
+    enums.definitions.forEach {def ->
+        if (def.toString().contains(content)) {
+            println(def)
+        }
+    }
+}
+
 fun ItemDrop.chance(table: DropTable): Double {
     if (table.type == TableType.All) {
         return 1.0
