@@ -399,10 +399,11 @@ id = 1283
 [summoning_familiar_ids]
 id = 1320
 
-# IDs of some sort mapped to familiar names
-[unknown_summoning_enum_1]
+# Familiar names from 0 - 77 in alphabetical order (Except phoenix, which is in place 77)
+[summoning_familiar_names_alphabetical]
 id = 1539
 
-# IDs of some sort mapped to familiar names
-[unknown_summoning_enum_2]
+# From NPC id
+# Lowercase, does not include dungeoneering IDs
+[summoning_familiar_names_lowercase]
 id = 931
