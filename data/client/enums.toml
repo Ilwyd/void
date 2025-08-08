@@ -365,6 +365,15 @@ id = 1187
 [summoning_scroll_ids_1]
 id = 1188
 
+# Used if varp 4282 > 50, 50 is immediately subtracted from the varp
+# Not sure when these are actually used... When low health, maybe??
+[pet_details_chathead_animations_other]
+id = 1275
+
+# Used if varp 4282 <= 50
+[pet_details_chathead_animations_normal]
+id = 1276
+
 # From index in the crafting menu, no difference from summoning_pouch_ids_1
 [summoning_pouch_ids_2]
 id = 1277
@@ -389,3 +398,11 @@ id = 1283
 # From pouch id
 [summoning_familiar_ids]
 id = 1320
+
+# IDs of some sort mapped to familiar names
+[unknown_summoning_enum_1]
+id = 1539
+
+# IDs of some sort mapped to familiar names
+[unknown_summoning_enum_2]
+id = 931
