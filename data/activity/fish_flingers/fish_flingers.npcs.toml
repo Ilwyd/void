@@ -1,0 +1,26 @@
+[fish_flingers_fisherman_1]
+id = 9676
+wander_range = 0
+
+[fish_flingers_fisherman_2]
+id = 9677
+wander_range = 0
+
+[fish_flingers_fisherman_3]
+id = 9678
+wander_range = 0
+
+[fish_flingers_fishermans_wife_1]
+id = 3709
+wander_range = 0
+examine = "She seems happy in her work."
+
+[fish_flingers_fishermans_wife_2]
+id = 9679
+wander_range = 0
+examine = "She seems happy in her work."
+
+[fish_flingers_fishermans_wife_3]
+id = 9680
+wander_range = 0
+examine = "She seems happy in her work."

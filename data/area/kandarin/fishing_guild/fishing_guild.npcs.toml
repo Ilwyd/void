@@ -33,10 +33,6 @@ shop = "fishing_guild_shop"
 collision = "indoors"
 examine = "He runs the Fishing Guild shop."
 
-[fishermans_wife]
-id = 3709
-examine = "She seems happy in her work."
-
 [bonzo]
 id = 225
 examine = "The Fishing Contest judge."
