@@ -9,12 +9,16 @@ import world.gregs.voidps.engine.entity.character.move.tele
 import world.gregs.voidps.engine.entity.character.npc.NPC
 import world.gregs.voidps.engine.entity.character.npc.NPCs
 import world.gregs.voidps.engine.entity.character.player.Player
+import world.gregs.voidps.engine.entity.obj.GameObject
+import world.gregs.voidps.engine.entity.obj.GameObjects
+import world.gregs.voidps.engine.entity.obj.ObjectShape
 import world.gregs.voidps.engine.get
 import world.gregs.voidps.engine.map.instance.Instances
 import world.gregs.voidps.engine.map.zone.DynamicZones
 import world.gregs.voidps.engine.timer.Timer
 import world.gregs.voidps.engine.timer.toTicks
 import world.gregs.voidps.type.Region
+import world.gregs.voidps.type.Tile
 import java.util.concurrent.TimeUnit
 
 class FishFlingers : Script {
@@ -86,8 +90,14 @@ class FishFlingers : Script {
             despawnFishermen()
         }
 
+        objectOperate("Enter", "fish_flingers_exit_portal") {
+            tele(get("fish_flingers_entry_tile", Tile(2620, 3384)))
+        }
+
         adminCommand("gen_ff") {
             generateInstance()
+            set("instance", instance!!.id)
+            set("fish_flingers_entry_tile", tile)
             tele(instance!!.tile)
         }
     }
@@ -185,7 +195,9 @@ class FishFlingers : Script {
 
     fun generateInstance() {
         instance = Instances.large()
+        val baseTile = instance!!.tile
 
+        // Copying the regions over to the instance area
         val regions: List<List<Region>> = listOf(
             listOf(Region(10038), Region(10294), Region(10550)),
             listOf(Region(10039), Region(10295), Region(10551)),
@@ -202,7 +214,24 @@ class FishFlingers : Script {
             yOffset++
         }
 
-        logger.info { "Instance generated at ${instance!!.tile}" }
+        // Opening the gates 6464, 5312, 0
+        // West gate
+        GameObjects.add("fish_flingers_gate_1", baseTile.add(80, 69), ObjectShape.WALL_STRAIGHT, 3)
+        GameObjects.add("fish_flingers_gate_2", baseTile.add(80, 70), ObjectShape.WALL_STRAIGHT, 1)
+
+        // North west gate
+        GameObjects.add("fish_flingers_gate_1", baseTile.add(83, 76), ObjectShape.WALL_STRAIGHT, 0)
+        GameObjects.add("fish_flingers_gate_2", baseTile.add(84, 76), ObjectShape.WALL_STRAIGHT, 2)
+
+        // North east gate
+        GameObjects.add("fish_flingers_gate_1", baseTile.add(89, 76), ObjectShape.WALL_STRAIGHT, 0)
+        GameObjects.add("fish_flingers_gate_2", baseTile.add(90, 76), ObjectShape.WALL_STRAIGHT, 2)
+
+        // East gate
+        GameObjects.add("fish_flingers_gate_1", baseTile.add(93, 70), ObjectShape.WALL_STRAIGHT, 1)
+        GameObjects.add("fish_flingers_gate_2", baseTile.add(93, 69), ObjectShape.WALL_STRAIGHT, 3)
+
+        logger.info { "Instance generated at $baseTile" }
     }
 
     fun clearInstance() {

@@ -1,2 +1,11 @@
+[fish_flingers_exit_portal]
+id = 3826
+
 [fish_flingers_barrel]
 id = 3831
+
+[fish_flingers_gate_1]
+id = 3835
+
+[fish_flingers_gate_2]
+id = 3836

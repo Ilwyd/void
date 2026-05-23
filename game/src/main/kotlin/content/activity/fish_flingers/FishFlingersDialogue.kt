@@ -35,6 +35,7 @@ class FishFlingersDialogue : Script {
         player.choice {
             option<Happy>("Yes, teleport me to Fish Flingers.") {
                 if (World.timers.contains("fish_flingers_open_lobby")) {
+                    set("fish_flingers_entry_tile", tile)
                     Teleport.teleport(player, "fish_flingers_lobby_teleport", "modern")
                 }
                 else {
