@@ -2,11 +2,16 @@ package content.activity.fish_flingers
 
 import com.github.michaelbull.logging.InlineLogger
 import world.gregs.voidps.engine.Script
+import world.gregs.voidps.engine.client.command.adminCommand
 import world.gregs.voidps.engine.data.Settings
 import world.gregs.voidps.engine.entity.World
+import world.gregs.voidps.engine.entity.character.move.tele
 import world.gregs.voidps.engine.entity.character.npc.NPC
 import world.gregs.voidps.engine.entity.character.npc.NPCs
 import world.gregs.voidps.engine.entity.character.player.Player
+import world.gregs.voidps.engine.get
+import world.gregs.voidps.engine.map.instance.Instances
+import world.gregs.voidps.engine.map.zone.DynamicZones
 import world.gregs.voidps.engine.timer.Timer
 import world.gregs.voidps.engine.timer.toTicks
 import world.gregs.voidps.type.Region
@@ -80,6 +85,11 @@ class FishFlingers : Script {
         worldTimerStop("fish_flingers_fishermen") {
             despawnFishermen()
         }
+
+        adminCommand("gen_ff") {
+            generateInstance()
+            tele(instance!!.tile)
+        }
     }
 
     fun startDownTime() {
@@ -91,6 +101,7 @@ class FishFlingers : Script {
         logger.info { "Fish Flingers lobby opening." }
         World.timers.start("fish_flingers_open_lobby")
         generateFishDetails()
+//        generateInstance()
         spawnFishermen()
     }
 
@@ -114,6 +125,7 @@ class FishFlingers : Script {
         logger.info { "Fish Flingers match ending." }
         clearHints()
         startDownTime()
+        clearInstance()
     }
 
     fun despawnFishermen() {
@@ -169,6 +181,39 @@ class FishFlingers : Script {
 //
 //            logger.info { "$prefix, ${fish.name}, ${location.name}, ${hook.name}, ${bait.name}, $weight" }
 //        }
+    }
+
+    fun generateInstance() {
+        instance = Instances.large()
+
+        val regions: List<List<Region>> = listOf(
+            listOf(Region(10038), Region(10294), Region(10550)),
+            listOf(Region(10039), Region(10295), Region(10551)),
+            listOf(Region(10040), Region(10296), Region(10552))
+        )
+
+        var yOffset = 0
+        regions.forEach { row ->
+            var xOffset = 0
+            row.forEach { region ->
+                get<DynamicZones>().copy(region, Region(instance!!.x + xOffset, instance!!.y + yOffset))
+                xOffset++
+            }
+            yOffset++
+        }
+
+        logger.info { "Instance generated at ${instance!!.tile}" }
+    }
+
+    fun clearInstance() {
+        if (instance == null) return
+
+        Instances.free(instance!!)
+        instance = null
+    }
+
+    fun teleportLobbyToInstance() {
+
     }
 
     companion object {

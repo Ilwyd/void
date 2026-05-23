@@ -3,13 +3,18 @@ package content.activity.fish_flingers
 import content.entity.player.dialogue.Happy
 import content.entity.player.dialogue.Neutral
 import content.entity.player.dialogue.Quiz
+import content.entity.player.dialogue.Sad
 import content.entity.player.dialogue.type.choice
 import content.entity.player.dialogue.type.npc
 import content.entity.player.dialogue.type.player
 import world.gregs.voidps.engine.Script
+import world.gregs.voidps.engine.entity.World
+import world.gregs.voidps.engine.entity.character.move.tele
 import world.gregs.voidps.engine.entity.character.player.Player
+import world.gregs.voidps.engine.entity.character.player.Teleport
 import world.gregs.voidps.engine.inv.add
 import world.gregs.voidps.engine.inv.inventory
+import world.gregs.voidps.type.area.Rectangle
 
 class FishFlingersDialogue : Script {
     init {
@@ -28,7 +33,15 @@ class FishFlingersDialogue : Script {
         player.npc<Neutral>("Fish Flingers starts in x minutes. Would you like me to teleport you to the competition?")
 
         player.choice {
-            option("Yes, teleport me to Fish Flingers.") {}
+            option<Happy>("Yes, teleport me to Fish Flingers.") {
+                if (World.timers.contains("fish_flingers_open_lobby")) {
+                    Teleport.teleport(player, "fish_flingers_lobby_teleport", "modern")
+                }
+                else {
+                    // TODO: Find the actual text for when the lobby has closed
+                    npc<Sad>("The game has already started, I'm afraid.")
+                }
+            }
 
             option<Quiz>("Do you have any advice about the fish?") {
                 provideHint(player)

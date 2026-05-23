@@ -1,0 +1,8 @@
+[fish_flingers_lobby_teleport]
+x = [2578, 2587]
+y = [3525, 3532]
+tags = ["teleport"]
+
+[fish_flingers_lobby]
+x = [2576, 2589]
+y = [2523, 2532]
