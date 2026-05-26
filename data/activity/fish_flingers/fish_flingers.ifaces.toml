@@ -1,1 +1,18 @@
-#[fish_flingers_reward_shop]
+[fish_flingers_recent_catches]
+id = 919
+
+[fish_flingers_history]
+id = 921
+
+[fish_flingers_results]
+id = 922
+
+[fish_flingers_tackle]
+id = 923
+type = "inventory_tab"
+
+[tackle_box]
+id = 924
+
+[fish_flingers_reward_shop]
+id = 925

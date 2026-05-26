@@ -3,12 +3,17 @@ package content.activity.fish_flingers
 import com.github.michaelbull.logging.InlineLogger
 import world.gregs.voidps.engine.Script
 import world.gregs.voidps.engine.client.command.adminCommand
+import world.gregs.voidps.engine.client.ui.close
+import world.gregs.voidps.engine.client.ui.open
 import world.gregs.voidps.engine.data.Settings
+import world.gregs.voidps.engine.data.definition.Areas
 import world.gregs.voidps.engine.entity.World
 import world.gregs.voidps.engine.entity.character.move.tele
 import world.gregs.voidps.engine.entity.character.npc.NPC
 import world.gregs.voidps.engine.entity.character.npc.NPCs
 import world.gregs.voidps.engine.entity.character.player.Player
+import world.gregs.voidps.engine.entity.character.player.Players
+import world.gregs.voidps.engine.entity.character.player.name
 import world.gregs.voidps.engine.entity.obj.GameObject
 import world.gregs.voidps.engine.entity.obj.GameObjects
 import world.gregs.voidps.engine.entity.obj.ObjectShape
@@ -20,6 +25,7 @@ import world.gregs.voidps.engine.timer.toTicks
 import world.gregs.voidps.type.Region
 import world.gregs.voidps.type.Tile
 import java.util.concurrent.TimeUnit
+import kotlin.collections.forEach
 
 class FishFlingers : Script {
     var state: FishFlingerState? = null
@@ -91,7 +97,17 @@ class FishFlingers : Script {
         }
 
         objectOperate("Enter", "fish_flingers_exit_portal") {
+            // TODO: Check if there is a confirmation
             tele(get("fish_flingers_entry_tile", Tile(2620, 3384)))
+            resetPlayer(this)
+        }
+
+        playerLogout {
+            if (get("instance", -1) == instance!!.id) {
+                tele(get("fish_flingers_entry_tile", Tile(2620, 3384)))
+                resetPlayer(this)
+            }
+            return@playerLogout true
         }
 
         adminCommand("gen_ff") {
@@ -99,6 +115,13 @@ class FishFlingers : Script {
             set("instance", instance!!.id)
             set("fish_flingers_entry_tile", tile)
             tele(instance!!.tile)
+
+            open("fish_flingers_tackle")
+        }
+
+        adminCommand("end") {
+            close("fish_flingers_tackle")
+            open("inventory")
         }
     }
 
@@ -111,7 +134,7 @@ class FishFlingers : Script {
         logger.info { "Fish Flingers lobby opening." }
         World.timers.start("fish_flingers_open_lobby")
         generateFishDetails()
-//        generateInstance()
+        generateInstance()
         spawnFishermen()
     }
 
@@ -128,11 +151,15 @@ class FishFlingers : Script {
 
     fun startMatch() {
         logger.info { "Fish Flingers match starting." }
+
+        teleportLobbyToInstance()
+
         World.timers.start("fish_flingers_match")
     }
 
     fun endMatch() {
         logger.info { "Fish Flingers match ending." }
+        removePlayers()
         clearHints()
         startDownTime()
         clearInstance()
@@ -242,7 +269,35 @@ class FishFlingers : Script {
     }
 
     fun teleportLobbyToInstance() {
+        Players.forEach { player ->
+            if (Areas["fish_flingers_lobby"].contains(player.tile)) {
+                val bottomLeftRegion = Region(10038)
+                val instanceBottomLeftTile = instance!!.tile
+                val instanceDelta = player.tile.delta(bottomLeftRegion.tile)
 
+                player["instance"] = instance!!.id
+                player["fish_flingers_entry_tile"] = player.tile
+                player.tele(instanceBottomLeftTile.x + instanceDelta.x, instanceBottomLeftTile.y + instanceDelta.y)
+                player.open("fish_flingers_tackle")
+            }
+        }
+    }
+
+    fun resetPlayer(player: Player) {
+        player.clear("instance")
+        player.clear("fish_flingers_entry_tile")
+        player.close("fish_flingers_tackle")
+        player.open("inventory")
+    }
+
+    fun removePlayers() {
+        Players.forEach { player ->
+            if (player["instance", -1] == instance!!.id) {
+                // TODO: Teleport top players to the podium instead
+                player.tele(Areas["fish_flingers_lobby_teleport"])
+                resetPlayer(player)
+            }
+        }
     }
 
     companion object {
