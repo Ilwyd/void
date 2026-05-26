@@ -1,0 +1,21 @@
+[last_catch_fish]
+id = 1111
+
+[last_catch_weight]
+id = 1112
+
+[last_catch_location]
+id = 1113
+
+[last_catch_bait]
+id = 1114
+
+[last_catch_hook]
+id = 1115
+
+[last_catch_range]
+id = 1116
+
+[last_catch_rating]
+id = 1117
+

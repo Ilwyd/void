@@ -1,0 +1,15 @@
+[fish_flingers_side_load]
+id = 253
+
+# Runs 263, 265, 266
+[fish_flingers_refresh_interface]
+id = 261
+
+[update_active_bait]
+id = 263
+
+[update_active_hook]
+id = 265
+
+[update_active_weights]
+id = 266

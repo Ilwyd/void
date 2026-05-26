@@ -1,5 +1,15 @@
 [fish_flingers_recent_catches]
 id = 919
+type = "game_screen_overlay"
+
+[.heaviest]
+id = 75
+
+[.total_fish]
+id = 76
+
+[.total_weight]
+id = 77
 
 [fish_flingers_history]
 id = 921
@@ -10,6 +20,72 @@ id = 922
 [fish_flingers_tackle]
 id = 923
 type = "inventory_tab"
+
+[.worm]
+id = 9
+
+[.maggot]
+id = 10
+
+[.locust]
+id = 11
+
+[.cricket]
+id = 12
+
+[.crayfish]
+id = 13
+
+[.shrimp]
+id = 14
+
+[.green_moth]
+id = 15
+
+[.grey_moth]
+id = 16
+
+[.standard_hook]
+id = 17
+
+[.large_hook]
+id = 18
+
+[.slim_hook]
+id = 19
+
+[.wooden_hook]
+id = 20
+
+[.bone_hook]
+id = 21
+
+[.double_hook]
+id = 22
+
+[.small_weight]
+id = 23
+
+[.medium_weight]
+id = 24
+
+[.large_weight]
+id = 25
+
+[.remove_small_weight]
+id = 26
+
+[.remove_medium_weight]
+id = 27
+
+[.remove_large_weight]
+id = 28
+
+[.cast]
+id = 56
+
+[.clear_line]
+id = 57
 
 [tackle_box]
 id = 924
