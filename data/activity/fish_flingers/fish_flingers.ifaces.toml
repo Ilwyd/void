@@ -17,6 +17,7 @@ id = 921
 [fish_flingers_results]
 id = 922
 
+# Interface doesn't update until all tackle is set (varc 1104 - 1110 can just be to 0 e.g. none)
 [fish_flingers_tackle]
 id = 923
 type = "inventory_tab"

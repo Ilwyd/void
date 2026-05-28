@@ -1,3 +1,24 @@
+[current_weight_1]
+id = 1104
+
+[current_weight_2]
+id = 1105
+
+[current_weight_3]
+id = 1106
+
+[current_weight_4]
+id = 1107
+
+[current_weight_5]
+id = 1108
+
+[current_bait]
+id = 1109
+
+[current_hook]
+id = 1110
+
 [last_catch_fish]
 id = 1111
 

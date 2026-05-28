@@ -101,7 +101,7 @@ class FishFlingers : Script {
         }
 
         playerLogout {
-            if (get("instance", -1) == instance!!.id) {
+            if (get("instance", -1) == instance?.id) {
                 tele(get("fish_flingers_entry_tile", Tile(2620, 3384)))
                 resetPlayer(this)
             }
@@ -120,6 +120,10 @@ class FishFlingers : Script {
         adminCommand("end") {
             close("fish_flingers_tackle")
             open("inventory")
+        }
+
+        adminCommand("open_ff_inter") {
+            openTackleInterface(this)
         }
     }
 
@@ -206,16 +210,6 @@ class FishFlingers : Script {
                 Pair("prefix", FishFlingersFish.getFishPrefix(fish, location))
             )
         }
-
-//        fishDetails.forEach { (fish, details) ->
-//            val location: FishFlingersLocations = details["location"] as FishFlingersLocations
-//            val hook: FishFlingersHooks = details["hook"] as FishFlingersHooks
-//            val bait: FishFlingersBait = details["bait"] as FishFlingersBait
-//            val weight: Int = details["weight"] as Int
-//            val prefix: String = details["prefix"] as String
-//
-//            logger.info { "$prefix, ${fish.name}, ${location.name}, ${hook.name}, ${bait.name}, $weight" }
-//        }
     }
 
     fun generateInstance() {
@@ -244,11 +238,11 @@ class FishFlingers : Script {
         GameObjects.add("fish_flingers_gate_1", baseTile.add(80, 69), ObjectShape.WALL_STRAIGHT, 3)
         GameObjects.add("fish_flingers_gate_2", baseTile.add(80, 70), ObjectShape.WALL_STRAIGHT, 1)
 
-        // North west gate
+        // North-west gate
         GameObjects.add("fish_flingers_gate_1", baseTile.add(83, 76), ObjectShape.WALL_STRAIGHT, 0)
         GameObjects.add("fish_flingers_gate_2", baseTile.add(84, 76), ObjectShape.WALL_STRAIGHT, 2)
 
-        // North east gate
+        // North-east gate
         GameObjects.add("fish_flingers_gate_1", baseTile.add(89, 76), ObjectShape.WALL_STRAIGHT, 0)
         GameObjects.add("fish_flingers_gate_2", baseTile.add(90, 76), ObjectShape.WALL_STRAIGHT, 2)
 
@@ -276,9 +270,22 @@ class FishFlingers : Script {
                 player["instance"] = instance!!.id
                 player["fish_flingers_entry_tile"] = player.tile
                 player.tele(instanceBottomLeftTile.x + instanceDelta.x, instanceBottomLeftTile.y + instanceDelta.y)
-                player.open("fish_flingers_tackle")
+                openTackleInterface(player)
             }
         }
+    }
+
+    fun openTackleInterface(player: Player) {
+        player.open("fish_flingers_tackle")
+
+        // All varcs must be set before the interface will update
+        player["current_weight_1"] = FishFlingersWeights.NONE.varcValue
+        player["current_weight_2"] = FishFlingersWeights.NONE.varcValue
+        player["current_weight_3"] = FishFlingersWeights.NONE.varcValue
+        player["current_weight_4"] = FishFlingersWeights.NONE.varcValue
+        player["current_weight_5"] = FishFlingersWeights.NONE.varcValue
+        player["current_bait"] = FishFlingersBait.NONE.varcValue
+        player["current_hook"] = FishFlingersHooks.NONE.varcValue
     }
 
     fun resetPlayer(player: Player) {

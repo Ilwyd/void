@@ -1,0 +1,21 @@
+# Projectiles start at id 2360 - 2366
+[dark_green_fish]
+id = 2360
+
+[red_fish]
+id = 2361
+
+[white_fish]
+id = 2362
+
+[blue_fish]
+id = 2363
+
+[small_white_fish]
+id = 2364
+
+[light_green_fish]
+id = 2365
+
+[large_red_fish]
+id = 2366
