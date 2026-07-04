@@ -22,28 +22,28 @@ id = 922
 id = 923
 type = "inventory_tab"
 
-[.worm]
+[.bait_worm]
 id = 9
 
-[.maggot]
+[.bait_maggot]
 id = 10
 
-[.locust]
+[.bait_locust]
 id = 11
 
-[.cricket]
+[.bait_cricket]
 id = 12
 
-[.crayfish]
+[.bait_crayfish]
 id = 13
 
-[.shrimp]
+[.bait_shrimp]
 id = 14
 
-[.green_moth]
+[.bait_green_moth]
 id = 15
 
-[.grey_moth]
+[.bait_grey_moth]
 id = 16
 
 [.standard_hook]
@@ -64,13 +64,13 @@ id = 21
 [.double_hook]
 id = 22
 
-[.small_weight]
+[.add_small_weight]
 id = 23
 
-[.medium_weight]
+[.add_medium_weight]
 id = 24
 
-[.large_weight]
+[.add_large_weight]
 id = 25
 
 [.remove_small_weight]
